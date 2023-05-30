@@ -140,7 +140,7 @@ async def test_task():
             sent_msg += pack("f", height)
             sent_msg += pack("f", step)
             sent_msg += pack("f", width / step / 2 + (height / step - 1) * (width / step))
-            sent_msg += pack("fff", 50.0, 0, 80)
+            sent_msg += pack("fff", 0, 0, 49)
             
             sent_msg += pack("f", 0)
             sent_msg += pack("Q", 0)
@@ -210,6 +210,7 @@ async def test_task():
         sent_msg[34:42] = pack("Q", len(sending_obstacles) + 1)
         #sent_msg[34:42] = pack("Q", 1)
         if EchoClientProtocol.outside_transport is not None:
+            print("data size = ", len(sent_msg))
             EchoClientProtocol.outside_transport.write(sent_msg)
         cv2.imshow("AirSim", png)
         if cv2.waitKey(1) & 0xFF == ord('q'):
